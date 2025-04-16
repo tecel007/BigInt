@@ -608,13 +608,14 @@ namespace Fibonacci
 
                                     __p++; __r++;
                                 }
+                                carry--;
                                 while (__q < q_stop)
                                 {
-                                    temp2 = 0 - *__q - carry;
+                                    temp2 = ~*__q - carry;
 
                                     *__r = temp2;
 
-                                    carry = (ulong)(temp2 > 0 ? 1 : 0);
+                                    carry = (ulong)(temp2 > 0 ? 0 : ulong.MaxValue);
                                     
                                     __q++; __r++;
                                 }
@@ -649,7 +650,7 @@ namespace Fibonacci
                                 carry++;
                                 while (__q < q_stop)
                                 {
-                                    temp2 = ulong.MaxValue - *__q - carry;
+                                    temp2 = ~*__q - carry;
 
                                     *__r = temp2;
 
@@ -715,13 +716,14 @@ namespace Fibonacci
 
                                     __p++; __r++;
                                 }
+                                carry--;
                                 while (__q < q_stop)
                                 {
-                                    temp2 = 0 - ~*__q - carry;
+                                    temp2 = *__q - carry;
 
                                     *__r = temp2;
 
-                                    carry = (ulong)(temp2 > 0 ? 1 : 0);
+                                    carry = (ulong)(temp2 > 0 ? 0 : ulong.MaxValue);
 
                                     __q++; __r++;
                                 }
@@ -756,7 +758,7 @@ namespace Fibonacci
                                 carry++;
                                 while (__q < q_stop)
                                 {
-                                    temp2 = ulong.MaxValue - ~*__q - carry;
+                                    temp2 = *__q - carry;
 
                                     *__r = temp2;
 

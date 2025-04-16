@@ -24,52 +24,60 @@
                     ulong ql = p.buffer[m] & uint.MaxValue;
                     ulong qh = p.buffer[m] >> BITS_HALF;
 
-                    if(m == n)
+                    if (m == n)
                     {
-                        if (ph != 0 && qh != 0)
-                        {
-                            temp.buffer[0] = ph * qh;
+                        int bits = (n + m) * BITS;
 
-                            BigInt.AddShift(__r, temp, (n + m + 1) * BITS);
-                        }
-                        if (ph != 0 && ql != 0)
-                        {
-                            temp.buffer[0] = ph * ql;
-
-                            BigInt.AddShift(__r, temp, (n + m) * BITS + BITS_HALF + 1);
-                        }
                         if (pl != 0 && ql != 0)
                         {
                             temp.buffer[0] = pl * ql;
 
-                            BigInt.AddShift(__r, temp, (n + m) * BITS);
+                            BigInt.AddShift(__r, temp, bits);
                         }
-                    }
-                    else
-                    {
-                        if (ph != 0 && qh != 0)
-                        {
-                            temp.buffer[0] = ph * qh;
-
-                            BigInt.AddShift(__r, temp, (n + m + 1) * BITS + 1);
-                        }
+                        bits += BITS_HALF + 1;
                         if (ph != 0 && ql != 0)
                         {
                             temp.buffer[0] = ph * ql;
 
-                            BigInt.AddShift(__r, temp, (n + m) * BITS + BITS_HALF + 1);
+                            BigInt.AddShift(__r, temp, bits);
+                        }
+                        bits += BITS_HALF - 1;
+                        if (ph != 0 && qh != 0)
+                        {
+                            temp.buffer[0] = ph * qh;
+
+                            BigInt.AddShift(__r, temp, bits);
+                        }
+                    }
+                    else
+                    {
+                        int bits = (n + m) * BITS + 1;
+
+                        if (pl != 0 && ql != 0)
+                        {
+                            temp.buffer[0] = pl * ql;
+
+                            BigInt.AddShift(__r, temp, bits);
+                        }
+                        bits += BITS_HALF;
+                        if (ph != 0 && ql != 0)
+                        {
+                            temp.buffer[0] = ph * ql;
+
+                            BigInt.AddShift(__r, temp, bits);
                         }
                         if (pl != 0 && qh != 0)
                         {
                             temp.buffer[0] = pl * qh;
 
-                            BigInt.AddShift(__r, temp, (n + m) * BITS + BITS_HALF + 1);
+                            BigInt.AddShift(__r, temp, bits);
                         }
-                        if (pl != 0 && ql != 0)
+                        bits += BITS_HALF;
+                        if (ph != 0 && qh != 0)
                         {
-                            temp.buffer[0] = pl * ql;
+                            temp.buffer[0] = ph * qh;
 
-                            BigInt.AddShift(__r, temp, (n + m) * BITS + 1);
+                            BigInt.AddShift(__r, temp, bits);
                         }
                     }
                 }
@@ -104,29 +112,33 @@
                     ulong ql = q.buffer[m] & uint.MaxValue;
                     ulong qh = q.buffer[m] >> BITS_HALF;
 
-                    if (ph != 0 && qh != 0)
-                    {
-                        temp.buffer[0] = ph * qh;
+                    int bits = (n + m) * BITS;
 
-                        BigInt.AddShift(__r, temp, (n + m + 1) * BITS);
+                    if (pl != 0 && ql != 0)
+                    {
+                        temp.buffer[0] = pl * ql;
+
+                        BigInt.AddShift(__r, temp, bits);
                     }
+                    bits += BITS_HALF;
                     if (ph != 0 && ql != 0)
                     {
                         temp.buffer[0] = ph * ql;
 
-                        BigInt.AddShift(__r, temp, (n + m) * BITS + BITS_HALF);
+                        BigInt.AddShift(__r, temp, bits);
                     }
                     if (pl != 0 && qh != 0)
                     {
                         temp.buffer[0] = pl * qh;
 
-                        BigInt.AddShift(__r, temp, (n + m) * BITS + BITS_HALF);
+                        BigInt.AddShift(__r, temp, bits);
                     }
-                    if (pl != 0 && ql != 0)
+                    bits += BITS_HALF;
+                    if (ph != 0 && qh != 0)
                     {
-                        temp.buffer[0] = pl * ql;
+                        temp.buffer[0] = ph * qh;
 
-                        BigInt.AddShift(__r, temp, (n + m) * BITS);
+                        BigInt.AddShift(__r, temp, bits);
                     }
                 }
             }

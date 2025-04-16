@@ -8,7 +8,7 @@ namespace Fibonacci
     {
         public delegate BigInt Execute(ulong n);
 
-        const int REPEAT = 256;
+        const int REPEAT = 1024;
 
         static void Add(string sign, ulong n, BigInt a1, BigInt a2, BigInteger c1, BigInteger c2)
         {
@@ -308,9 +308,9 @@ namespace Fibonacci
             //    }
             //}
 
-            Addition(134217728 / BYTES);
+            //Addition(134217728 / BYTES);
 
-            ulong n = 1048576 / BYTES;
+            ulong n = 1;// 1048576 / BYTES;
 
             while (n < 33554432)
             {

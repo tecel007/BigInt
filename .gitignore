@@ -1,0 +1,15 @@
+build/
+node_modules/
+bin/
+obj/
+.vs/
+x64/
+*.exe
+*.lib
+*.log
+*.pdb
+*.exp
+*.xpr
+*.vssscc
+*.vspscc
+*.dll

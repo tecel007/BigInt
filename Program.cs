@@ -308,9 +308,9 @@ namespace Fibonacci
             //    }
             //}
 
-            //Addition(134217728 / BYTES);
+            Addition(134217728 / BYTES);
 
-            ulong n = 1;// 1048576 / BYTES;
+            ulong n = 1048576 / BYTES;
 
             while (n < 33554432)
             {

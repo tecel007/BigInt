@@ -188,7 +188,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 + _2).ToString())
                 {
-                    Console.WriteLine("operator +(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR operator +(BigInt p, BigInt q)");
                 }
 #endif
                 return r;
@@ -202,7 +202,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 - _2).ToString())
                 {
-                    Console.WriteLine("operator -(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR operator -(BigInt p, BigInt q)");
                 }
 #endif
                 r.Shrink();
@@ -263,7 +263,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(carry.ToString());
                 if (r.ToString() != (_1 + _2).ToString())
                 {
-                    Console.WriteLine("operator +(BigInt p, ulong q)");
+                    Console.WriteLine("ERROR operator +(BigInt p, ulong q)");
                 }
 #endif
                 return r;
@@ -336,7 +336,7 @@ namespace Fibonacci
                 var _3 = BigInteger.Parse(r.ToString());
                 if (_1.ToString() != (_3 + (_2 << bit)).ToString())
                 {
-                    Console.WriteLine("AddShift(BigInt p, BigInt q, int bit)");
+                    Console.WriteLine("ERROR AddShift(BigInt p, BigInt q, int bit)");
                 }
 #endif
             }
@@ -446,7 +446,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 + _2).ToString())
                 {
-                    Console.WriteLine("Add(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR Add(BigInt p, BigInt q)");
                 }
 #endif
                 return r;
@@ -557,7 +557,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 - _2).ToString())
                 {
-                    Console.WriteLine("AddNeg(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR AddNeg(BigInt p, BigInt q)");
                 }
 #endif
                 return r;
@@ -667,7 +667,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 - _2).ToString())
                 {
-                    Console.WriteLine("Sub(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR Sub(BigInt p, BigInt q)");
                 }
 #endif
                 return r;
@@ -775,7 +775,7 @@ namespace Fibonacci
                 var _2 = BigInteger.Parse(q.ToString());
                 if (r.ToString() != (_1 + _2).ToString())
                 {
-                    Console.WriteLine("SubNeg(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR SubNeg(BigInt p, BigInt q)");
                 }
 #endif
                 return r;
@@ -853,7 +853,7 @@ namespace Fibonacci
                 var _1 = BigInteger.Parse(p.ToString());
                 if (r.ToString() != (_1 << bit).ToString())
                 {
-                    Console.WriteLine("operator <<(BigInt p, int bit)");
+                    Console.WriteLine("ERROR operator <<(BigInt p, int bit)");
                 }
 #endif
                 return r;
@@ -906,7 +906,7 @@ namespace Fibonacci
                 var _1 = BigInteger.Parse(p.ToString());
                 if (p.Sign() && r.ToString() != (_1 >> bit).ToString())
                 {
-                    Console.WriteLine("operator >>(BigInt p, int bit)");
+                    Console.WriteLine("ERROR operator >>(BigInt p, int bit)");
                 }
 #endif
                 r.Shrink();
@@ -961,7 +961,7 @@ namespace Fibonacci
                 var _1 = BigInteger.Parse(p.ToString());
                 if (r.ToString() != (_1 >>> bit).ToString())
                 {
-                    Console.WriteLine("operator >>>(BigInt p, int bit)");
+                    Console.WriteLine("ERROR operator >>>(BigInt p, int bit)");
                 }
 #endif
                 r.Shrink();
@@ -1066,7 +1066,7 @@ namespace Fibonacci
                 var _1 = BigInteger.Parse(p.ToString());
                 if (r.ToString() != (~_1).ToString())
                 {
-                    Console.WriteLine("operator &(BigInt p, BigInt q)");
+                    Console.WriteLine("ERROR operator &(BigInt p, BigInt q)");
                 }
 #endif
                 return r;

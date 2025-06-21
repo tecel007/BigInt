@@ -280,7 +280,6 @@ namespace Fibonacci
                 int _byte = bit / BITS;
                 int _bit = bit % BITS;
 
-
                 fixed (ulong* _p = p.buffer)
                 {
                     fixed (ulong* _q = q.buffer)
@@ -325,6 +324,78 @@ namespace Fibonacci
                             *__p = temp2;
 
                             carry = (ulong)(temp2 < carry ? 1 : 0);
+
+                            __p++;
+                        }
+                    }
+                }
+#if TEST
+                var _1 = BigInteger.Parse(p.ToString());
+                var _2 = BigInteger.Parse(q.ToString());
+                var _3 = BigInteger.Parse(r.ToString());
+                if (_1.ToString() != (_3 + (_2 << bit)).ToString())
+                {
+                    Console.WriteLine("ERROR AddShift(BigInt p, BigInt q, int bit)");
+                }
+#endif
+            }
+
+            public static void SubShift(BigInt p, BigInt q, int bit)
+            {
+#if TEST
+                BigInt r = new BigInt([.. p.buffer]);
+#endif
+                int n = p.buffer.Length;
+                int m = q.buffer.Length;
+
+                int _byte = bit / BITS;
+                int _bit = bit % BITS;
+
+
+                fixed (ulong* _p = p.buffer)
+                {
+                    fixed (ulong* _q = q.buffer)
+                    {
+                        ulong* __p = _p + _byte, __q = _q, p_stop = _p + n, q_stop = _q + m;
+                        ulong carry = 0, temp1, temp2;
+
+                        if (_bit > 0)
+                        {
+                            while (__p < p_stop && __q < q_stop)
+                            {
+                                temp1 = *__p;
+
+                                temp2 = temp1 - (*__q << _bit) - carry;
+
+                                *__p = temp2;
+
+                                carry = (*__q >> (BITS - _bit)) + (ulong)(temp2 > temp1 ? 1 : 0);
+
+                                __p++; __q++;
+                            }
+                        }
+                        else
+                        {
+                            while (__p < p_stop && __q < q_stop)
+                            {
+                                temp1 = *__p;
+
+                                temp2 = temp1 - *__q - carry;
+
+                                *__p = temp2;
+
+                                carry = (ulong)(temp2 > temp1 ? 1 : 0);
+
+                                __p++; __q++;
+                            }
+                        }
+                        while (__p < p_stop && carry != 0)
+                        {
+                            temp2 = *__p - carry;
+
+                            *__p = temp2;
+
+                            carry = (ulong)(temp2 > carry ? 1 : 0);
 
                             __p++;
                         }
@@ -1087,20 +1158,25 @@ namespace Fibonacci
                 {
                     fixed (ulong* _r = r.buffer)
                     {
-                        uint* __p = (uint*)(_p + n - 1) + 1, __r = (uint*)(_r + n - 1) + 1, p_stop = (uint*)_p;
-                        ulong carry = 0;
+                        ulong* __p = _p + n - 1, __r = _r + n - 1, p_stop = _p;
+                        ulong carry = 0, temp;
 
                         while (__p >= p_stop)
                         {
-                            var result = Math.DivRem(*__p + (carry << BITS_HALF), q);
-
-                            *__r = (uint)result.Quotient;
+                            var result = Math.DivRem((*__p >> BITS_HALF) + (carry << BITS_HALF), q);
 
                             carry = result.Remainder;
 
+                            temp = result.Quotient << BITS_HALF;
+
+                            result = Math.DivRem((*__p & uint.MaxValue) + (carry << BITS_HALF), q);
+
+                            carry = result.Remainder;
+
+                            *__r = temp + result.Quotient;
+
                             __p--; __r--;
                         }
-
                     }
                 }
 
@@ -1116,20 +1192,21 @@ namespace Fibonacci
 
                 p = p.Sign() ? p : -p;
 
-                ulong r = 0;
+                ulong carry = 0;
 
                 fixed (ulong* _p = p.buffer)
                 {
-                    uint* __p = (uint*)(_p + n - 1) + 1, p_stop = (uint*)_p;
+                    ulong* __p = _p + n - 1, p_stop = _p;
 
                     while (__p >= p_stop)
                     {
-                        r = (*__p + (r << BITS_HALF)) % q;
+                        carry = ((*__p >> BITS_HALF) + (carry << BITS_HALF)) % q;
+                        carry = ((*__p & uint.MaxValue) + (carry << BITS_HALF)) % q;
 
                         __p--;
                     }
                 }
-                return r;
+                return carry;
             }
 
             public static BigInt operator *(BigInt p, BigInt q)

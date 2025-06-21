@@ -12,7 +12,7 @@ namespace Fibonacci
         const int BEGIN = 1024;
         const int REPEAT = 16;
         const int END1 = 1024 * 1024;
-        const int END2 = 1024 * 1024;
+        const int END2 = 1024 * 1024 * 4;
 
         static Random rand = new Random(DateTime.Now.Second);
 
@@ -66,13 +66,13 @@ namespace Fibonacci
             BigInteger r2;
 
             timer.Start();
-            r2 = c1 % d;
+            for (int i = 0; i < REPEAT; i++) r2 = c1 % d;
             timer.Stop();
             time1 = timer.ElapsedMilliseconds;
 
             timer.Reset();
             timer.Start();
-            r1 = a1 % d;
+            for (int i = 0; i < REPEAT; i++) r1 = a1 % d;
             timer.Stop();
             time2 = timer.ElapsedMilliseconds;
 
@@ -87,13 +87,13 @@ namespace Fibonacci
             BigInteger r2;
 
             timer.Start();
-            r2 = c1 / d;
+            for (int i = 0; i < REPEAT; i++) r2 = c1 / d;
             timer.Stop();
             time1 = timer.ElapsedMilliseconds;
 
             timer.Reset();
             timer.Start();
-            r1 = a1 / d;
+            for (int i = 0; i < REPEAT; i++) r1 = a1 / d;
             timer.Stop();
             time2 = timer.ElapsedMilliseconds;
 
@@ -302,7 +302,7 @@ namespace Fibonacci
 #endif
             ulong n = BEGIN;
 
-            while (n < END1 + 1)
+            while (n <= END1)
             {
                 Addition(n);
                 Multiplication(n);
@@ -312,7 +312,7 @@ namespace Fibonacci
 
             n = BEGIN;
 
-            while (n < END2 + 1)
+            while (n <= END2)
             {
                 Once("FibonacciDivideThreadCache        ", FibonacciDivideThreadCache, n);
                 Once("FibonacciMultiplyToomCook3        ", FibonacciMultiplyToomCook3, n);

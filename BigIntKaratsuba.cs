@@ -40,10 +40,14 @@
 
             var __r = new BigInt();
 
-            __r.Alloc(Math.Max(abcd.buffer.Length * BITS + n, bd.buffer.Length * BITS + (n << 1)));
+            int bits = Math.Max(Math.Max(ac.buffer.Length * BITS, abcd.buffer.Length * BITS + n), bd.buffer.Length * BITS + (n << 1));
+
+            __r.Alloc(bits);
 
             BigInt.AddShift(__r, ac, 0);
-            BigInt.AddShift(__r, abcd - ac - bd, n);
+            BigInt.AddShift(__r, abcd, n);
+            BigInt.SubShift(__r, ac, n);
+            BigInt.SubShift(__r, bd, n);
             BigInt.AddShift(__r, bd, n << 1);
 
             __r = __r.Sign() ? __r : -__r;
@@ -93,10 +97,14 @@
 
             var __r = new BigInt();
 
-            __r.Alloc(Math.Max(abcd.buffer.Length * BITS + n, bd.buffer.Length * BITS + (n << 1)));
+            int bits = Math.Max(Math.Max(ac.buffer.Length * BITS, abcd.buffer.Length * BITS + n), bd.buffer.Length * BITS + (n << 1));
+
+            __r.Alloc(bits);
 
             BigInt.AddShift(__r, ac, 0);
-            BigInt.AddShift(__r, abcd - ac - bd, n);
+            BigInt.AddShift(__r, abcd, n);
+            BigInt.SubShift(__r, ac, n);
+            BigInt.SubShift(__r, bd, n);
             BigInt.AddShift(__r, bd, n << 1);
 
             __r = __r.Sign() ? __r : -__r;

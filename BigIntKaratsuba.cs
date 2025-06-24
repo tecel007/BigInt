@@ -13,6 +13,7 @@
 
             n = (n + 1) / 2;
 
+            bool sign = true;
             p = p.Sign() ? p : -p;
 
             BigInt b = p >> n;
@@ -50,7 +51,7 @@
             BigInt.SubShift(__r, bd, n);
             BigInt.AddShift(__r, bd, n << 1);
 
-            __r = __r.Sign() ? __r : -__r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
             return __r;
         }
@@ -107,7 +108,7 @@
             BigInt.SubShift(__r, bd, n);
             BigInt.AddShift(__r, bd, n << 1);
 
-            __r = __r.Sign() ? __r : -__r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
             return __r;
         }

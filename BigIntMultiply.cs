@@ -83,7 +83,7 @@
                 }
             }
 
-            __r = sign ? __r : -__r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
             return __r;
         }
@@ -143,7 +143,7 @@
                 }
             }
 
-            __r = sign ? __r : -__r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
             return __r;
         }

@@ -37,11 +37,11 @@ namespace Fibonacci
                 _p[i] /= _p.Length;
             }
 
-            var r = GetBigInt(BASE, _p);
+            var __r = GetBigInt(BASE, _p);
 
-            r = sign ? r : -r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
-            return r;
+            return __r;
         }
 
         static BigInt SchönhageStrassen(BigInt p, BigInt q, bool top = false)
@@ -82,11 +82,11 @@ namespace Fibonacci
                 _p[i] /= _p.Length;
             }
 
-            var r = GetBigInt(BASE, _p);
+            var __r = GetBigInt(BASE, _p);
 
-            r = sign ? r : -r;
+            __r = __r.Sign() == sign ? __r : -__r;
 
-            return r;
+            return __r;
         }
 
         public static void FFT(Complex[] buffer, int m, int sign)

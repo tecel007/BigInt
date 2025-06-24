@@ -1160,16 +1160,15 @@ namespace Fibonacci
                     {
                         ulong* __p = _p + n - 1, __r = _r + n - 1, p_stop = _p;
                         ulong carry = 0, temp;
+                        (ulong Quotient, ulong Remainder) result;
 
                         while (__p >= p_stop)
                         {
-                            var result = Math.DivRem((*__p >> BITS_HALF) + (carry << BITS_HALF), q);
-
-                            carry = result.Remainder;
+                            result = Math.DivRem((*__p >> BITS_HALF) + (carry << BITS_HALF), q);
 
                             temp = result.Quotient << BITS_HALF;
 
-                            result = Math.DivRem((*__p & uint.MaxValue) + (carry << BITS_HALF), q);
+                            result = Math.DivRem((*__p & uint.MaxValue) + (result.Remainder << BITS_HALF), q);
 
                             carry = result.Remainder;
 

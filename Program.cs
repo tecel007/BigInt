@@ -9,10 +9,11 @@ namespace Fibonacci
     {
         public delegate BigInt Execute(ulong n);
 
-        const int BEGIN = 1024;
-        const int REPEAT = 16;
-        const int END1 = 1024 * 1024;
-        const int END2 = 1024 * 1024 * 4;
+        const int BEGIN = 2;
+        const int REPEAT = 8;
+        const int END_ADD = 1024 * 1024 * 16;
+        const int END_MUL = 1024 * 1024;
+        const int END_FIB = 1024 * 1024 * 4;
 
         static Random rand = new Random(DateTime.Now.Second);
 
@@ -109,9 +110,13 @@ namespace Fibonacci
                 b1[i] = (ulong)rand.NextInt64();
                 b2[i] = (ulong)rand.NextInt64();
             }
-
-            //if (n > 1) Array.Resize(ref b1, b1.Length / 2);
-            //if (n > 1) Array.Resize(ref b2, b2.Length / 2);
+            switch(rand.Next() % 10)
+            {
+                case 0:
+                    if (n > 1) Array.Resize(ref b1, b1.Length / 2); break;
+                case 1:
+                    if (n > 1) Array.Resize(ref b2, b2.Length / 2); break;
+            }
 
             byte[] b3 = new byte[b1.Length * BYTES], b4 = new byte[b2.Length * BYTES];
 
@@ -186,8 +191,13 @@ namespace Fibonacci
                 b2[i] = (ulong)rand.NextInt64();
             }
 
-            //if (n > 1) Array.Resize(ref b1, b1.Length / 2);
-            //if (n > 1) Array.Resize(ref b2, b2.Length / 2);
+            switch (rand.Next() % 10)
+            {
+                case 0:
+                    if (n > 1) Array.Resize(ref b1, b1.Length / 2); break;
+                case 1:
+                    if (n > 1) Array.Resize(ref b2, b2.Length / 2); break;
+            }
 
             byte[] b3 = new byte[b1.Length * BYTES], b4 = new byte[b2.Length * BYTES];
 
@@ -300,19 +310,26 @@ namespace Fibonacci
                 }
             }
 #endif
-            ulong n = BEGIN;
+            ulong n;
 
-            while (n <= END1)
+            n = BEGIN;
+            while (n <= END_ADD)
             {
                 Addition(n);
+
+                n = n * 2;
+            }
+
+            n = BEGIN;
+            while (n <= END_MUL)
+            {
                 Multiplication(n);
 
                 n = n * 2;
             }
 
             n = BEGIN;
-
-            while (n <= END2)
+            while (n <= END_FIB)
             {
                 Once("FibonacciDivideThreadCache        ", FibonacciDivideThreadCache, n);
                 Once("FibonacciMultiplyToomCook3        ", FibonacciMultiplyToomCook3, n);
